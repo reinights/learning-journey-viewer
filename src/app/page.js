@@ -1,95 +1,117 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState, useEffect } from "react";
+import "./globals.css";
+import supabase from "./api/supabaseClient";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  //fetches lessons initially.
+  useEffect(() => {
+    async function fetchLessons() {
+      const { data: lessons, error } = await supabase
+        .from("lessons")
+        .select(`*`);
+      if (error) {
+        setError(error);
+      } else {
+        setData(lessons);
+      }
+      setLoading(false);
+    }
+
+    fetchLessons();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        Sorry, something went wrong. Please refresh the page or try again later.
+      </div>
+    );
+  }
+
+  //filters the dataset into two categories: in progress and completed
+  const filteredLessons = data.filter((lesson) => {
+    if (filter === "all") return true;
+    if (filter === "in progress") return lesson.status === "in progress";
+    if (filter === "completed") return lesson.status === "completed";
+    return true;
+  });
+
+  function cardRender(lesson) {
+    console.log(lesson);
+    //no need to break as returning
+    switch (lesson.status) {
+      case "completed":
+        return (
+          <div className="lesson-card completed" key={lesson.id}>
+            <div>
+              <h3 className="lesson-card-header">{lesson.title}</h3>
+              <p>{lesson.description}</p>
+            </div>
+            <div>
+              <p className="lesson-card-progress">Progress: Completed!</p>
+              <div
+                style={{ width: '100%' }}
+                className="lesson-card-progress-bar"
+              ></div>
+            </div>
+          </div>
+        );
+      //default is "in progress"
+      default:
+        return (
+          <div className="lesson-card in-progress" key={lesson.id}>
+            <div>
+              <h3 className="lesson-card-header">{lesson.title}</h3>
+              <p>{lesson.description}</p>
+            </div>
+            <div>
+              <p className="lesson-card-progress">
+                Progress: {lesson.progress}%
+              </p>
+              {/* Setting the width based on the progress */}
+              <div
+                style={{ width: `${lesson.progress}%` }}
+                className="lesson-card-progress-bar"
+              ></div>
+            </div>
+          </div>
+        );
+    }
+  }
+  return (
+    <main>
+      <section className="lesson-header">
+        <h2>Your lessons</h2>
+
+        <div className="lesson-controls">
+          {/* built in html tag for dropdowns */}
+          <label htmlFor="filter-select">Filter: </label>
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="filter-dropdown"
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            <option value="all">All</option>
+            <option value="in progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      <section className="lesson-content">
+        {filteredLessons.map((lesson) => cardRender(lesson))}
+      </section>
+    </main>
   );
 }

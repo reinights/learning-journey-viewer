@@ -1,13 +1,38 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --accent: #7a28cb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@font-face {
+  font-family: "Kollektif";
+  src: url("/fonts/Kollektif.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kollektif";
+  src: url("/fonts/Kollektif-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@keyframes lessonHover {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 black;
   }
+  100% {
+    transform: scale(1.1);
+    box-shadow: 0 1px 10px var(--accent);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
@@ -19,24 +44,101 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Kollektif", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+main {
+  max-width: 1080px;
+
+  /* first parameter is vertical margin, second is horizontal (auto for centering) */
+  margin: 3em auto;
+  padding: 1em;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+h2 {
+  font-size: 2rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+label {
+  font-weight: bold;
+}
+
+.lesson-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.filter-dropdown {
+  /* Overrides default dropdown styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  font-family: "Kollektif", sans-serif;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--background);
+  font-size: 0.85rem;
+
+}
+
+.lesson-content {
+  display: grid;
+  gap: 2em;
+}
+
+.lesson-card {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+
+  /* Syling */
+  cursor: pointer;
+  padding: 1em;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 1px 10px black;
+}
+
+.lesson-card.in-progress{
+  border-top: 10px solid #FBFB7C;
+}
+.lesson-card.completed{
+  border-top: 10px solid #9FFF63;
+}
+.lesson-card:hover {
+  animation: lessonHover 0.3s ease-out forwards;
+}
+
+.lesson-card-progress {
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.lesson-card-progress-bar{
+  height: 2px;
+  background-color: var(--accent);
+}
+
+@media screen and (min-width: 768px) {
+  .lesson-content {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+@media screen and (min-width: 1020px) {
+  .lesson-card{
+    height: 200px;
+
+  }
+  .lesson-content {
+    grid-template-columns: repeat(3, auto);
   }
 }
