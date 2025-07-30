@@ -1,0 +1,272 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.Login, Fetch, Logout": 2,
+      "vusers.created": 2,
+      "http.requests": 4,
+      "errors.cookie_parse_error_invalid_cookie": 2,
+      "http.codes.200": 4,
+      "http.responses": 4,
+      "http.downloaded_bytes": 0,
+      "plugins.metrics-by-endpoint./auth/v1/token.codes.200": 2,
+      "plugins.metrics-by-endpoint./rest/v1/lessons.errors.ERR_GOT_REQUEST_ERROR": 2,
+      "errors.ERR_GOT_REQUEST_ERROR": 2,
+      "vusers.failed": 2,
+      "plugins.metrics-by-endpoint./rest/v1/lessons.codes.200": 2
+    },
+    "rates": {
+      "http.request_rate": 3
+    },
+    "firstCounterAt": 1753886207231,
+    "firstHistogramAt": 1753886207469,
+    "lastCounterAt": 1753886208460,
+    "lastHistogramAt": 1753886208460,
+    "firstMetricAt": 1753886207231,
+    "lastMetricAt": 1753886208460,
+    "period": 1753886200000,
+    "summaries": {
+      "http.response_time": {
+        "min": 59,
+        "max": 182,
+        "count": 4,
+        "mean": 124,
+        "p50": 111.1,
+        "median": 111.1,
+        "p75": 144,
+        "p90": 144,
+        "p95": 144,
+        "p99": 144,
+        "p999": 144
+      },
+      "http.response_time.2xx": {
+        "min": 59,
+        "max": 182,
+        "count": 4,
+        "mean": 124,
+        "p50": 111.1,
+        "median": 111.1,
+        "p75": 144,
+        "p90": 144,
+        "p95": 144,
+        "p99": 144,
+        "p999": 144
+      },
+      "plugins.metrics-by-endpoint.response_time./auth/v1/token": {
+        "min": 145,
+        "max": 182,
+        "count": 2,
+        "mean": 163.5,
+        "p50": 144,
+        "median": 144,
+        "p75": 144,
+        "p90": 144,
+        "p95": 144,
+        "p99": 144,
+        "p999": 144
+      },
+      "plugins.metrics-by-endpoint.response_time./rest/v1/lessons": {
+        "min": 59,
+        "max": 110,
+        "count": 2,
+        "mean": 84.5,
+        "p50": 58.6,
+        "median": 58.6,
+        "p75": 58.6,
+        "p90": 58.6,
+        "p95": 58.6,
+        "p99": 58.6,
+        "p999": 58.6
+      }
+    },
+    "histograms": {
+      "http.response_time": {
+        "min": 59,
+        "max": 182,
+        "count": 4,
+        "mean": 124,
+        "p50": 111.1,
+        "median": 111.1,
+        "p75": 144,
+        "p90": 144,
+        "p95": 144,
+        "p99": 144,
+        "p999": 144
+      },
+      "http.response_time.2xx": {
+        "min": 59,
+        "max": 182,
+        "count": 4,
+        "mean": 124,
+        "p50": 111.1,
+        "median": 111.1,
+        "p75": 144,
+        "p90": 144,
+        "p95": 144,
+        "p99": 144,
+        "p999": 144
+      },
+      "plugins.metrics-by-endpoint.response_time./auth/v1/token": {
+        "min": 145,
+        "max": 182,
+        "count": 2,
+        "mean": 163.5,
+        "p50": 144,
+        "median": 144,
+        "p75": 144,
+        "p90": 144,
+        "p95": 144,
+        "p99": 144,
+        "p999": 144
+      },
+      "plugins.metrics-by-endpoint.response_time./rest/v1/lessons": {
+        "min": 59,
+        "max": 110,
+        "count": 2,
+        "mean": 84.5,
+        "p50": 58.6,
+        "median": 58.6,
+        "p75": 58.6,
+        "p90": 58.6,
+        "p95": 58.6,
+        "p99": 58.6,
+        "p999": 58.6
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.Login, Fetch, Logout": 2,
+        "vusers.created": 2,
+        "http.requests": 4,
+        "errors.cookie_parse_error_invalid_cookie": 2,
+        "http.codes.200": 4,
+        "http.responses": 4,
+        "plugins.metrics-by-endpoint./auth/v1/token.codes.200": 2,
+        "plugins.metrics-by-endpoint./rest/v1/lessons.errors.ERR_GOT_REQUEST_ERROR": 2,
+        "errors.ERR_GOT_REQUEST_ERROR": 2,
+        "vusers.failed": 2,
+        "plugins.metrics-by-endpoint./rest/v1/lessons.codes.200": 2
+      },
+      "rates": {
+        "http.request_rate": 3
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1753886207231,
+      "firstHistogramAt": 1753886207469,
+      "lastCounterAt": 1753886208460,
+      "lastHistogramAt": 1753886208460,
+      "firstMetricAt": 1753886207231,
+      "lastMetricAt": 1753886208460,
+      "period": "1753886200000",
+      "summaries": {
+        "http.response_time": {
+          "min": 59,
+          "max": 182,
+          "count": 4,
+          "mean": 124,
+          "p50": 111.1,
+          "median": 111.1,
+          "p75": 144,
+          "p90": 144,
+          "p95": 144,
+          "p99": 144,
+          "p999": 144
+        },
+        "http.response_time.2xx": {
+          "min": 59,
+          "max": 182,
+          "count": 4,
+          "mean": 124,
+          "p50": 111.1,
+          "median": 111.1,
+          "p75": 144,
+          "p90": 144,
+          "p95": 144,
+          "p99": 144,
+          "p999": 144
+        },
+        "plugins.metrics-by-endpoint.response_time./auth/v1/token": {
+          "min": 145,
+          "max": 182,
+          "count": 2,
+          "mean": 163.5,
+          "p50": 144,
+          "median": 144,
+          "p75": 144,
+          "p90": 144,
+          "p95": 144,
+          "p99": 144,
+          "p999": 144
+        },
+        "plugins.metrics-by-endpoint.response_time./rest/v1/lessons": {
+          "min": 59,
+          "max": 110,
+          "count": 2,
+          "mean": 84.5,
+          "p50": 58.6,
+          "median": 58.6,
+          "p75": 58.6,
+          "p90": 58.6,
+          "p95": 58.6,
+          "p99": 58.6,
+          "p999": 58.6
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 59,
+          "max": 182,
+          "count": 4,
+          "mean": 124,
+          "p50": 111.1,
+          "median": 111.1,
+          "p75": 144,
+          "p90": 144,
+          "p95": 144,
+          "p99": 144,
+          "p999": 144
+        },
+        "http.response_time.2xx": {
+          "min": 59,
+          "max": 182,
+          "count": 4,
+          "mean": 124,
+          "p50": 111.1,
+          "median": 111.1,
+          "p75": 144,
+          "p90": 144,
+          "p95": 144,
+          "p99": 144,
+          "p999": 144
+        },
+        "plugins.metrics-by-endpoint.response_time./auth/v1/token": {
+          "min": 145,
+          "max": 182,
+          "count": 2,
+          "mean": 163.5,
+          "p50": 144,
+          "median": 144,
+          "p75": 144,
+          "p90": 144,
+          "p95": 144,
+          "p99": 144,
+          "p999": 144
+        },
+        "plugins.metrics-by-endpoint.response_time./rest/v1/lessons": {
+          "min": 59,
+          "max": 110,
+          "count": 2,
+          "mean": 84.5,
+          "p50": 58.6,
+          "median": 58.6,
+          "p75": 58.6,
+          "p90": 58.6,
+          "p95": 58.6,
+          "p99": 58.6,
+          "p999": 58.6
+        }
+      }
+    }
+  ]
+}

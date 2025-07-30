@@ -1,0 +1,35 @@
+config:
+  target: "https://ohbnvpessbejlvggzthb.supabase.co"
+  phases:
+    - duration: 2
+      arrivalRate: 1
+  defaults:
+    headers:
+      apikey: "apikey" #replace with real env file
+      Content-Type: "application/json"
+
+scenarios:
+  - name: Login, Fetch, Logout
+    flow:
+      - post:
+          url: "/auth/v1/token?grant_type=password"
+          json:
+            email: "job@test.com"
+            password: "123"
+          capture:
+            - json: "$.access_token"
+              as: token
+
+      - get:
+          url: "/rest/v1/lessons"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 200
+
+      - post:
+          url: "/auth/v1/logout"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 204  # Supabase seems to returns 204 for logging out
