@@ -106,24 +106,22 @@ export default function Home() {
       <section className="lesson-header">
         <h2>Your lessons</h2>
         <button
+          className="button"
           onClick={async () => {
             await supabase.auth.signOut();
             router.push("/login");
           }}
-          style={{
-            background: "none",
-            color: "var(--accent)",
-            border: "1px solid var(--accent)",
-            padding: "0.5em 1em",
-            borderRadius: "4px",
-            fontFamily: "Kollektif, sans-serif",
-            cursor: "pointer",
-            marginBottom: "2rem",
-            alignSelf: "flex-end",
-          }}
         >
           Log out
         </button>
+        <a
+          href="/api/linkedin/authorise"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button"
+        >
+          Share on LinkedIn
+        </a>
         <div className="lesson-controls">
           {/* built in html tag for dropdowns */}
           <label htmlFor="filter-select">Filter: </label>
