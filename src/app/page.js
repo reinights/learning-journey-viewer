@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import "./globals.css";
 import supabase from "./api/supabaseClient";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 export default function Home() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -16,15 +16,14 @@ export default function Home() {
   useEffect(() => {
     async function fetchLessons() {
       // Auth check
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session) {
-        router.push("/login");
-        return;
-      }
-
-      // Fetch only this user's lessons (assuming RLS is on)
+      // const {
+      //   data: { session },
+      // } = await supabase.auth.getSession();
+      // if (!session) {
+      //   router.replace("/login");
+      //   return;
+      // }
+      // console.log(session);
       const { data: lessons, error } = await supabase
         .from("lessons")
         .select("*");
@@ -101,9 +100,79 @@ export default function Home() {
         );
     }
   }
+
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString("en-GB", options);
+  };
+  const postExample = {
+    author_avatar: "/coffee.png",
+    author: "Job Tumibay",
+    bio: "I'm a web developer focusing on creating fun stuff on the web. I like looking up at our night sky, and I'm always open for book recommendations.",
+    date: Date.now(),
+  };
+  function ContentMeta({ post, bioEnabled = true }) {
+    return (
+      <div className="meta">
+        <Image
+          style={{ borderRadius: "50%" }}
+          src={post.author_avatar}
+          alt={post.author}
+          width={40}
+          height={40}
+        />
+        <div>
+          <p>
+            By {post.author} | {formatDate(post.date)}
+          </p>
+          {/* Could get too long */}
+          {bioEnabled && <p className="meta--bio">{post.bio}</p>}
+        </div>
+      </div>
+    );
+  }
+
+  function AboutCard({ post, variant }) {
+    if (variant === "current") {
+      return (
+        <div className="about--content">
+          <h2 className="about--name">{post.author}</h2>
+          <Image
+            style={{ borderRadius: "50%" }}
+            className="about--image"
+            src={post.author_avatar}
+            alt={post.author}
+            width={300}
+            height={300}
+          />
+          <div className="about--bio">"{post.bio}"</div>
+        </div>
+      );
+    }
+    if (variant === "homepage") {
+      const firstName = post.author.split(" ")[0];
+      return (
+        <div className="about--content__homepage">
+          <Image
+            style={{ borderRadius: "50%" }}
+            className="about--image__homepage"
+            src={post.author_avatar}
+            alt={post.author}
+            width={300}
+            height={300}
+          />
+          <h2 className="about--name__homepage">{firstName}</h2>
+          <p className="about--bio__homepage">{post.bio}</p>
+        </div>
+      );
+    }
+
+    return null;
+  }
+
   return (
     <main>
-      <section className="lesson-header">
+      {/* <section className="lesson-header">
         <h2>Your lessons</h2>
         <button
           className="button"
@@ -113,17 +182,16 @@ export default function Home() {
           }}
         >
           Log out
-        </button>
-        <a
+        </button> */}
+        {/* <a
           href="/api/linkedin/authorise"
           target="_blank"
           rel="noopener noreferrer"
           className="button"
         >
           Share on LinkedIn
-        </a>
-        <div className="lesson-controls">
-          {/* built in html tag for dropdowns */}
+        </a> */}
+        {/* <div className="lesson-controls">
           <label htmlFor="filter-select">Filter: </label>
           <select
             value={filter}
@@ -135,11 +203,38 @@ export default function Home() {
             <option value="completed">Completed</option>
           </select>
         </div>
-      </section>
+      </section> */}
+      <div style={{ marginBottom: "40px" }}>
+        <h2 className="header">Component on Blogs - Bio Enabled</h2>
+        <ContentMeta post={postExample} />
+      </div>
+      <div style={{ marginBottom: "40px" }}>
+        <h2 className="header">Component on Blogs - Bio Disabled</h2>
+        <ContentMeta post={postExample} bioEnabled={false} />
+      </div>
+      <div style={{ marginBottom: "40px" }} className="content">
+        <h2 className="header">Platform Content - Bio Enabled</h2>
+        <ContentMeta post={postExample} />
+      </div>
 
-      <section className="lesson-content">
+      <div style={{ marginBottom: "40px" }} className="content">
+        <h2 className="header">Platform Content - Bio Disabled</h2>
+        <ContentMeta post={postExample} bioEnabled={false} />
+      </div>
+
+      <div style={{ marginBottom: "40px" }}>
+        <h2 style={{ textAlign: "center" }} className="header">
+          About Teams - Variant
+        </h2>
+        <div className="about">
+          <AboutCard post={postExample} variant="current"></AboutCard>
+          <AboutCard post={postExample} variant="homepage"></AboutCard>
+        </div>
+      </div>
+
+      {/* <section className="lesson-content">
         {filteredLessons.map((lesson) => cardRender(lesson))}
-      </section>
+      </section> */}
     </main>
   );
 }

@@ -29,44 +29,59 @@ export default function LoginPage() {
     setLoading(false);
   }
 
+  const loginWithMicrosoft = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "azure",
+      options: {
+        redirectTo: "http://localhost:3000", //I think this needs to be an absolute path?
+        scopes: "openid profile email",
+        queryParams: { prompt: "select_account" },
+      },
+    });
+  };
+
   return (
     <main>
-        <h2 style={{ marginBottom: "1em" }}>Login</h2>
-        <form
-          onSubmit={handleLogin}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            maxWidth: "400px",
-          }}
-        >
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={inputStyle}
-          />
+      <h2 style={{ marginBottom: "1em" }}>Login</h2>
+      <form
+        onSubmit={handleLogin}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+          maxWidth: "400px",
+        }}
+      >
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
+        />
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={inputStyle}
-          />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={inputStyle}
+        />
 
-          <button type="submit" disabled={loading} style={buttonStyle}>
-            {loading ? "Logging in..." : "Log in"}
-          </button>
+        <button type="submit" disabled={loading} style={buttonStyle}>
+          {loading ? "Logging in..." : "Log in"}
+        </button>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </form>
+
+      <button style={buttonStyle} onClick={loginWithMicrosoft}>
+        Continue with Microsoft
+      </button>
     </main>
   );
 }

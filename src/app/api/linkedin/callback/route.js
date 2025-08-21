@@ -29,8 +29,8 @@ export async function GET(req) {
     return new Response("Failed to get token", { status: 500 });
   }
 
-  // Set cookies on http only
-  cookies().set("linkedin_token", data.access_token, {
+  // Set cookies on http only (also await it later)
+  await cookies().set("linkedin_token", data.access_token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/",

@@ -2,9 +2,10 @@ import fs from "fs";
 import path from "path";
 import { cookies } from "next/headers";
 
+//Each time the code changes, user needs to login
 export async function GET() {
-  const accessToken = cookies().get("linkedin_token")?.value;
-
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("linkedin_token")?.value;
   if (!accessToken) return new Response("No token provided", { status: 401 });
 
   // Used to get userURN (to set author key)
@@ -87,7 +88,19 @@ export async function GET() {
       specificContent: {
         "com.linkedin.ugc.ShareContent": {
           shareCommentary: {
-            text: "I just completed my learning journey on Cyber Security and Phishing basics! \n\n #AI #Learning #Cybersecurity",
+            text: "I've just completed my learning journey on Cyber Security and Phishing basics at PlusMoon Digital \n\nFind out more:\nhttps://www.linkedin.com/company/taught-by-humans \n\n #AI #Learning #Cybersecurity",
+            attributes: [
+              {
+                start: 81,
+                length: 16,
+                value: {
+                  "com.linkedin.common.CompanyAttributedEntity": {
+                    // Would need the actual urn and the names need to match.
+                    company: "urn:li:organization:108116196",
+                  },
+                },
+              },
+            ],
           },
           shareMediaCategory: "IMAGE",
           //Not actually sure where this is used.
@@ -114,5 +127,19 @@ export async function GET() {
     return new Response("Post failed", { status: 500 });
   }
 
-  return new Response("Success!");
+  const postData = await postRes.json();
+  
+  // Extract the post ID from the response
+  const postId = postData.id;
+  
+  // Convert ugcPost URN to activity URN for the URL
+  // API returns: "urn:li:ugcPost:1234567890"
+  // URL needs: "urn:li:activity:1234567890"
+  const activityUrn = postId.replace('ugcPost', 'activity');
+  
+  // Construct the LinkedIn post URL
+  const linkedinPostUrl = `https://www.linkedin.com/feed/update/${activityUrn}/`;
+  
+  // Redirect to the LinkedIn post
+  return Response.redirect(linkedinPostUrl, 302);
 }

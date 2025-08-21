@@ -85,7 +85,6 @@ label {
   color: var(--accent);
   background: var(--background);
   font-size: 0.85rem;
-
 }
 
 .button {
@@ -99,7 +98,6 @@ label {
   margin-bottom: 2rem;
   align-self: flex-end;
 }
-
 
 .lesson-content {
   display: grid;
@@ -121,11 +119,11 @@ label {
   box-shadow: 0 1px 10px black;
 }
 
-.lesson-card.in-progress{
-  border-top: 10px solid #FBFB7C;
+.lesson-card.in-progress {
+  border-top: 10px solid #fbfb7c;
 }
-.lesson-card.completed{
-  border-top: 10px solid #9FFF63;
+.lesson-card.completed {
+  border-top: 10px solid #9fff63;
 }
 .lesson-card:hover {
   animation: lessonHover 0.3s ease-out forwards;
@@ -136,9 +134,93 @@ label {
   margin-bottom: 10px;
 }
 
-.lesson-card-progress-bar{
+.lesson-card-progress-bar {
   height: 2px;
   background-color: var(--accent);
+}
+
+/* Header */
+.content {
+  background-color: #41e2ba;
+  box-shadow: 0 3px 10px #7a28cb;
+  padding: 1.5em;
+  border-radius: 5px;
+}
+
+.header {
+  color: #7a28cb;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.meta--bio {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.about {
+  display: flex;
+  justify-content: center;
+}
+
+.about--content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.about--name {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.about--bio {
+  border-radius: 5px;
+  box-shadow: 0 3px 10px #7a28cb;
+  color: #7a28cb;
+  width: 60%;
+  padding: 20px;
+  font-style: italic;
+}
+.about--image {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  box-shadow: 0 3px 10px #7a28cb;
+}
+
+.about--content__homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #cdf3e9;
+  border-radius: 30px;
+}
+
+.about--name__homepage {
+  font-size: 2rem;
+  text-align: center;
+  color: #7a28cb;
+  margin-bottom: 0.5em;
+}
+
+.about--bio__homepage{
+  width: 80%;
+}
+.about--image__homepage {
+  margin-bottom: 1em;
+  border: 10px solid #7a28cb;
 }
 
 @media screen and (min-width: 768px) {
@@ -147,9 +229,8 @@ label {
   }
 }
 @media screen and (min-width: 1020px) {
-  .lesson-card{
+  .lesson-card {
     height: 200px;
-
   }
   .lesson-content {
     grid-template-columns: repeat(3, auto);
