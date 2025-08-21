@@ -126,7 +126,7 @@ export default function Home() {
             By {post.author} | {formatDate(post.date)}
           </p>
           {/* Could get too long */}
-          {bioEnabled && <p className="meta--bio">{post.bio}</p>}
+          {bioEnabled && <p className="meta--bio">"{post.bio}"</p>}
         </div>
       </div>
     );
@@ -162,7 +162,7 @@ export default function Home() {
             height={300}
           />
           <h2 className="about--name__homepage">{firstName}</h2>
-          <p className="about--bio__homepage">{post.bio}</p>
+          <p className="about--bio__homepage">"{post.bio}"</p>
         </div>
       );
     }

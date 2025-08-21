@@ -165,7 +165,7 @@ label {
 .meta--bio {
   margin-top: 0.25rem;
   font-size: 0.85rem;
-  line-height: 1.4;
+  font-style: italic;
 }
 
 .about {
@@ -215,8 +215,10 @@ label {
   margin-bottom: 0.5em;
 }
 
-.about--bio__homepage{
+.about--bio__homepage {
   width: 80%;
+  font-style: italic;
+  font-style: italic;
 }
 .about--image__homepage {
   margin-bottom: 1em;

@@ -33,7 +33,7 @@ export default function LoginPage() {
     await supabase.auth.signInWithOAuth({
       provider: "azure",
       options: {
-        redirectTo: "https://learning-journey-viewer.vercel.app", //I think this needs to be an absolute path?
+        redirectTo: "http://localhost:3000/", //I think this needs to be an absolute path?
         scopes: "openid profile email",
         queryParams: { prompt: "select_account" },
       },
